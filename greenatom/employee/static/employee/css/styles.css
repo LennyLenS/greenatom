@@ -1,0 +1,125 @@
+body {
+  position: relative;  
+  background-color: #e4e4e4;
+  }
+
+#Home {
+  height: 50px;
+  width: 50px;
+}
+
+#jumbotron {
+  background-image: url(https://images.unsplash.com/photo-1445263568431-e8766de3165b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60);
+  background-size: 100%;
+}
+
+#formJump {
+  margin: 0 auto;
+}
+
+#email {
+  width: 250px;
+}
+
+#oh {
+  margin-top: 60px;
+}
+
+#needMoreText {
+  font-size: 130%;
+  position: relative;
+  top: -15px;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+#creationForm {
+  width: 800px;
+}
+
+#loginForm {
+  width: 500px;
+}
+
+.mainForm {
+  margin-top: 120px;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+  word-wrap: break-word;
+  background-color: white;
+}
+
+.locatedCenter {
+  text-align: center;
+}
+
+#message {
+  margin-top: -160px;
+  margin-left: 830px;
+  width: 300px;
+  word-wrap: break-word;
+  background-color: white;
+}
+
+.indentation {
+  margin-left: -20px;
+  border-color: blue;
+}
+
+.postContent {
+  padding-top: 15px;
+  padding-left: 20px;
+  padding-bottom: 8px;
+}
+
+.postText {
+  margin-left: 20px;
+}
+
+.comments {
+  padding-left: 30px;
+  padding-bottom: 3px;
+  margin-right: 30px;
+  margin-top: 8px;
+}
+
+.comment {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#footer {
+  position: fixed;
+  width: 100%;
+  background-color: #dddddd;
+  margin-top: 50px;
+  margin-bottom: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+#firstInput {
+  margin-top: 30px;
+}
+
+#some {
+  margin-top: 30px;
+  margin-right: 0;
+}
+
+.container {
+  display: inline-block;
+}
+
+#programName {
+  padding-right: 15px;
+  border-right: 3px solid white;
+}

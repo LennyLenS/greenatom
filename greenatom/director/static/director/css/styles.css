@@ -1,0 +1,117 @@
+html, body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+body {
+  height: 100%;
+  background-color: #e4e4e4;
+  overflow: auto;  
+}
+
+#jumbotron {
+  background-image: url(https://images.unsplash.com/photo-1445263568431-e8766de3165b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60);
+  background-size: 100%;
+}
+
+#creationForm {
+  width: 800px;
+}
+
+#loginForm {
+  width: 500px;
+}
+
+#storageForm {
+  margin-top: 120px;
+  margin-bottom: 50px;
+  margin-left: 80px;
+  width: 850px;
+  word-wrap: break-word;
+  background-color: white;
+}
+
+.mainForm {
+  margin-top: 120px;
+  margin-bottom: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+  word-wrap: break-word;
+  background-color: white;
+}
+
+.locatedCenter {
+  text-align: center;
+}
+
+.locatedCenterBlock {
+  display: flex;
+  justify-content: right;
+  align-items: right;
+}
+
+.content {
+  padding-top: 15px;
+  padding-left: 20px;
+  padding-bottom: 8px;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #cacaca;
+  margin-top: 50px;
+  margin-bottom: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+#some {
+  margin-top: 30px;
+  margin-right: 0;
+}
+
+.container {
+  display: inline-block;
+}
+
+.containerText {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 30px;
+}
+
+.containerTextElement {
+  height: 100%;
+  margin-left: 15px;
+  border-left: 2px solid blue;
+  padding-left: 15px;
+}
+
+.borderRight {
+  border-right: 2px solid blue;
+  padding-right: 15px;
+  margin-right: 15px;
+}
+
+.containerButton {
+  height: 100%;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.indentUp {
+  margin-top: -5px;
+}
+
+#programName {
+  padding-right: 15px;
+  border-right: 3px solid white;
+}
