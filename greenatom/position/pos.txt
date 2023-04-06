@@ -1,0 +1,10 @@
+from position.models import Position
+Position.objects.create(name='Стажер')
+Position.objects.create(name='Младший специалист')
+Position.objects.create(name='Специалист')
+Position.objects.create(name='Старший специалист')
+Position.objects.create(name='Ведущий специалист')
+Position.objects.create(name='Эксперт')
+Position.objects.create(name='Старший эксперт')
+Position.objects.create(name='Ведущий эксперт')
+Position.objects.create(name='Архитектор')
