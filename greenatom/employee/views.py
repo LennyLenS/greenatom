@@ -66,9 +66,10 @@ def emp_info(request, emp_id):
     return HttpResponse("Страница не найдена1")
 
 
-def page_404(request, a):
+def page_405(request, a):
+    print("sdfsdfsdfdsf")
     return redirect('login')
 
 
-def page_404(request):
+def page_403(request):
     return redirect('login')

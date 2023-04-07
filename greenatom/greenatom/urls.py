@@ -9,7 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('employee/', include('employee.urls')),
     path('director/', include('director.urls')),
+    path('<path:a>', page_405),
+    path('', page_404),
 ]
-
-handler404 = page_not_found_view
 
