@@ -53,23 +53,34 @@
         <div class="content">
 
           <h2 class="locatedCenter">История ДИ:</h2>
-          <hr class="indentation">
 
           {% for key in emps %}
+          <hr class="indentation">
           <div class="containerText">
             <div><p class="locatedCenterY">{{ key.surname }} {{ key.name }} {{ key.third_name }}</p></div>
             <div class="containerTextElement"><p class="textElement">{{ key.position.all.0.name }}</p></div>
-            <div class="borderRight containerTextElement"><p>{{ i.specialization }}</p></div>
+            <div class="borderRight containerTextElement"><p>{{ key.specialization.all.0.name }}</p></div>
 
-            <div class="containerButton"><div class="indentUp">
-              <button type="submit" class="btn btn-secondary">Редактировать</button>
-              <button type="submit" class="btn btn-primary">word</button>
-              <button type="submit" class="btn btn-danger">pdf</button>
+            <div class="containerButton"><div class="indentUp" style="display: flex;flex-direction: row;justify-content: flex-start;">
+              <form method="POST" action="{% url 'create_j_d' %}"  class="inline">
+                {% csrf_token %}
+                <input style="display: none; width:0px; height:0" type="hidden" class="form-control" placeholder="Введите пароль" name="id" value="{{ key.id }}">
+                <button type="submit" class="btn btn-secondary">Редактировать</button>
+              </form>
+              <form method="POST" action="{% url 'create_j_d' %}"  class="inline">
+                {% csrf_token %}
+                <input style="display: none; width:0px; height:0" type="hidden" class="form-control" placeholder="Введите пароль" name="id" value="{{ key.id }}">
+                <button type="submit" class="btn btn-primary">word</button>
+              </form>
+              <form method="POST" action="{% url 'create_j_d' %}"  class="inline">
+                {% csrf_token %}
+                <input style="display: none; width:0px; height:0" type="hidden" class="form-control" placeholder="Введите пароль" name="id" value="{{ key.id }}">
+                <button type="submit" class="btn btn-danger">pdf</button>
+              </form>
             </div></div>
 
           </div>
           {% endfor %}
-          <hr class="indentation">
 
         </div>       
 

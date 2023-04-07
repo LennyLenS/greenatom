@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'director.apps.DirectorConfig',
     'position.apps.PositionConfig',
     'specialization.apps.SpecializationConfig',
+    'key_words.apps.KeyWordsConfig',
 ]
 
 MIDDLEWARE = [

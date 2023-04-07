@@ -12,7 +12,6 @@ def login(request):
         param = request.POST
         if len(Director.objects.filter(login=param.get('login'))) != 0 \
                 and Director.objects.filter(login=param.get('login'))[0].password == param.get('password'):
-            print(request.session)
             cache.set("auth", "true")
             cache.set("id", Director.objects.filter(login=param.get('login'))[0].id)
             return redirect("storage")
@@ -67,6 +66,8 @@ def registration(request):
 
 
 def storage(request):
+    if cache.get("emp_id"):
+        cache.delete("emp_id")
     if cache.get("auth") == 'true':
         if request.POST.get('password') == "exit":
             cache.delete("auth")
@@ -78,8 +79,9 @@ def storage(request):
             param = dict()
             param["pos"] = list()
             param["emps"] = list()
-            print(Employee.objects.filter(id=1)[0].position.filter(id=1)[0].name)
+            #print(Employee.objects.filter(id=1)[0].position.filter(id=1)[0].name)
             for i in emps:
+                print(i.position.all())
                 param["emps"].append(i)
                 param["pos"].append(i.position.all()[0].name)
             return render(request, "director/storage.html", param)
