@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 
 from director.models import Director
@@ -87,4 +88,9 @@ def storage(request):
     #id_dir = request.POST.get("id")
 
 
+def page_404(request, a):
+    return redirect('login')
 
+
+def page_404(request):
+    return redirect('login')

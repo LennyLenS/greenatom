@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 
 from position.models import Position
@@ -16,17 +16,15 @@ def index(request):
 def create_j_d(request):
     if request.POST:
         param = request.POST
-        if len(param.get('name').split(" ")) > 2 and len(param.get('key-word').split(" ")) != 0:
-            new_user = Employee(name=param.get('name').split(" ")[1],
-                                    surname=param.get('name').split(" ")[0],
-                                    third_name=param.get('name').split(" ")[2::],
-                                    depat_name=param.get('depart'),
-                                    group_name=param.get('group'),
-                                    center_name=param.get('center'),
-                                    position=param.get('position'),
-                                    specialization=param.get('position'),
-                                    job=param.get('key-word'))
-            new_user.save()
+        if len(param.get('name').split(" ")) > 2 and len(param.get('key-words').split(" ")) != 0:
+            new_user = Employee.objects.create(name=param.get('name').split(" ")[1],
+                                                surname=param.get('name').split(" ")[0],
+                                                third_name=param.get('name').split(" ")[2::],
+                                                depat_name=param.get('depart'),
+                                                group_name=param.get('group'),
+                                                center_name=param.get('center'),
+                                                job=param.get('key-words'))
+            print(cache.get("id"))
             Director.objects.filter(id=cache.get("id"))[0].add(new_user)
             return redirect("storage")
         else:
@@ -37,9 +35,22 @@ def create_j_d(request):
             if len(param.get('key-word').split(" ")) == 0:
                 return_param['errors'].append("Нет ключевых слов")
 
+            pos_names = list()
+            for i in list(Position.objects.all()):
+                pos_names.append(i.name)
+
+            return_param['pos_names'] = pos_names
+            print(pos_names)
             return render(request, "employee/j_d_form.html", return_param)
     else:
-        return render(request, "employee/j_d_form.html")
+        return_param = dict()
+        pos_names = list()
+        for i in list(Position.objects.all()):
+            pos_names.append(i.name)
+
+        return_param['pos_names'] = pos_names
+        print(pos_names)
+        return render(request, "employee/j_d_form.html", return_param)
 
 
 def emp_history(request):
@@ -53,3 +64,11 @@ def emp_jb(request, emp_id):
 
 def emp_info(request, emp_id):
     return HttpResponse("Страница не найдена1")
+
+
+def page_404(request, a):
+    return redirect('login')
+
+
+def page_404(request):
+    return redirect('login')
