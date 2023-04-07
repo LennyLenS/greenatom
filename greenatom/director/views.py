@@ -90,9 +90,9 @@ def storage(request):
     #id_dir = request.POST.get("id")
 
 
-def page_404(request, a):
+def page_405(request, a):
     return redirect('login')
 
 
-def page_404(request):
+def page_403(request):
     return redirect('login')

@@ -67,12 +67,12 @@
                 <input style="display: none; width:0px; height:0" type="hidden" class="form-control" placeholder="Введите пароль" name="id" value="{{ key.id }}">
                 <button type="submit" class="btn btn-secondary">Редактировать</button>
               </form>
-              <form method="POST" action="{% url 'create_j_d' %}"  class="inline">
+              <form method="POST"  class="inline">
                 {% csrf_token %}
                 <input style="display: none; width:0px; height:0" type="hidden" class="form-control" placeholder="Введите пароль" name="id" value="{{ key.id }}">
-                <button type="submit" class="btn btn-primary">word</button>
+                <a href="../../{{ key.id }}.doc" download><button type="submit" class="btn btn-primary">word</button></a>
               </form>
-              <form method="POST" action="{% url 'create_j_d' %}"  class="inline">
+              <form method="POST" class="inline">
                 {% csrf_token %}
                 <input style="display: none; width:0px; height:0" type="hidden" class="form-control" placeholder="Введите пароль" name="id" value="{{ key.id }}">
                 <button type="submit" class="btn btn-danger">pdf</button>

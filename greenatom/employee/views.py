@@ -1,13 +1,19 @@
+import os
+
+from django.conf import settings
 from django.core.cache import cache
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, FileResponse
 from django.shortcuts import render, redirect
 
 from position.models import Position
 
+from .generator import print_hi
 from .models import Employee
 from director.models import Director
 
 from specialization.models import Specialization
+
+from key_words.models import Key_words
 
 
 def index(request):
@@ -16,7 +22,6 @@ def index(request):
 
 
 def create_j_d(request):
-    print("!!!!!!!", request.POST)
     if cache.get("auth") != "true":
         return redirect("login")
     if cache.get('emp_id'):
@@ -39,6 +44,21 @@ def create_j_d(request):
             new_user.specialization.add(Specialization.objects.filter(name=param.get('specialization'))[0])
 
             new_user.save()
+
+            mainResponsibilities = ""
+            for i in list(new_user.job.split(" ")):
+                mainResponsibilities += '\n'
+                mainResponsibilities += Key_words.objects.filter(name=i)[0].description
+            print_hi(new_user.group_name + " " + new_user.depat_name + " " + new_user.center_name,
+                     Director.objects.filter(id=cache.get("id"))[0].pos_name,
+                     list(Specialization.objects.filter(id=new_user.specialization.all()[0].id)[0].description.split("; ")),
+                     Director.objects.filter(id=cache.get("id"))[0].name[0] + '.' + Director.objects.filter(id=cache.get("id"))[0].third_name[0] + '. ' + Director.objects.filter(id=cache.get("id"))[0].surname,
+                     ["111", "222"],
+                     Specialization.objects.filter(id=new_user.specialization.all()[0].id)[0].knowledge,
+                     Position.objects.filter(id=new_user.position.all()[0].id)[0].education,
+                     Position.objects.filter(id=new_user.position.all()[0].id)[0].job_experience,
+                     mainResponsibilities,
+                     f'{new_user.id}')
             cache.delete('emp_id')
             return redirect("storage")
         else:
@@ -60,7 +80,7 @@ def create_j_d(request):
             print(pos_names)
 
             return render(request, "employee/j_d_form.html", return_param)
-    elif len(request.POST) != 2:
+    elif len(request.POST) != 2 and len(request.POST) != 0:
         param = request.POST
         if len(param.get('name').split(" ")) > 2 and len(param.get('key_words').split(" ")) != 0:
             new_user = Employee.objects.create(name=param.get('name').split(" ")[1],
@@ -74,6 +94,24 @@ def create_j_d(request):
             Director.objects.filter(id=cache.get("id"))[0].id_emp.add(new_user)
             new_user.position.add(Position.objects.filter(name=param.get('position'))[0])
             new_user.specialization.add(Specialization.objects.filter(name=param.get('specialization'))[0])
+            mainResponsibilities = ""
+            for i in list(new_user.job.split(" ")):
+                print(i)
+                mainResponsibilities += '\n'
+                mainResponsibilities += Key_words.objects.filter(name=i)[0].description
+            print_hi(new_user.group_name + " " + new_user.depat_name + " " + new_user.center_name,
+                         Director.objects.filter(id=cache.get("id"))[0].pos_name,
+                         list(Specialization.objects.filter(id=new_user.specialization.all()[0].id)[0].description.split(
+                             "; ")),
+                         Director.objects.filter(id=cache.get("id"))[0].name[0] + '.' +
+                         Director.objects.filter(id=cache.get("id"))[0].third_name[0] + '. ' +
+                         Director.objects.filter(id=cache.get("id"))[0].surname,
+                         ["111", "222"],
+                         Specialization.objects.filter(id=new_user.specialization.all()[0].id)[0].description,
+                         Position.objects.filter(id=new_user.position.all()[0].id)[0].education,
+                         Position.objects.filter(id=new_user.position.all()[0].id)[0].job_experience,
+                             mainResponsibilities,
+                         f'{new_user.id}.doc')
             return redirect("storage")
         else:
             return_param = param.dict()
@@ -114,7 +152,6 @@ def create_j_d(request):
         return_param['third_name'] = new_user.third_name
         return_param['key_words'] = new_user.job
         cache.set("emp_id", param['id'])
-        print("@@@@@@",param['id'])
         return render(request, "employee/j_d_form.html", return_param)
 
     else:
@@ -129,6 +166,12 @@ def create_j_d(request):
         return_param['pos_names'] = pos_names
         print(pos_names)
         return render(request, "employee/j_d_form.html", return_param)
+
+
+def download(request, a):
+    file_path = os.path.join('./', a)
+    response = FileResponse(open(file_path, 'rb'))
+    return response
 
 
 def page_405(request, a):

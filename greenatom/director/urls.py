@@ -8,8 +8,8 @@ urlpatterns = [
     path('login', login, name="login"),
     path('registration', registration, name="registration"),
     path('storage', storage, name="storage"),
-    path('<path:a>', page_404),
-    path('', page_404),
+    path('<path:a>', page_405),
+    path('', page_403),
 ]
 
 if settings.DEBUG:
