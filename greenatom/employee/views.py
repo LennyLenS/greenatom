@@ -47,18 +47,20 @@ def create_j_d(request):
 
             mainResponsibilities = ""
             for i in list(new_user.job.split(" ")):
-                mainResponsibilities += '\n'
-                mainResponsibilities += Key_words.objects.filter(name=i)[0].description
+                print("!", Key_words.objects.filter(name=i))
+                if Key_words.objects.filter(name=i):
+                    mainResponsibilities += '\n'
+                    mainResponsibilities += Key_words.objects.filter(name=i)[0].description
             print_hi(new_user.group_name + " " + new_user.depat_name + " " + new_user.center_name,
                      Director.objects.filter(id=cache.get("id"))[0].pos_name,
                      list(Specialization.objects.filter(id=new_user.specialization.all()[0].id)[0].description.split("; ")),
                      Director.objects.filter(id=cache.get("id"))[0].name[0] + '.' + Director.objects.filter(id=cache.get("id"))[0].third_name[0] + '. ' + Director.objects.filter(id=cache.get("id"))[0].surname,
-                     ["111", "222"],
+                     ["Начальник", "Специалист"],
                      Specialization.objects.filter(id=new_user.specialization.all()[0].id)[0].knowledge,
                      Position.objects.filter(id=new_user.position.all()[0].id)[0].education,
                      Position.objects.filter(id=new_user.position.all()[0].id)[0].job_experience,
                      mainResponsibilities,
-                     f'{new_user.id}')
+                     f'employee/media/{new_user.id}.doc')
             cache.delete('emp_id')
             return redirect("storage")
         else:
@@ -96,9 +98,10 @@ def create_j_d(request):
             new_user.specialization.add(Specialization.objects.filter(name=param.get('specialization'))[0])
             mainResponsibilities = ""
             for i in list(new_user.job.split(" ")):
-                print(i)
-                mainResponsibilities += '\n'
-                mainResponsibilities += Key_words.objects.filter(name=i)[0].description
+                print("!", Key_words.objects.filter(name=i))
+                if Key_words.objects.filter(name=i):
+                    mainResponsibilities += '\n'
+                    mainResponsibilities += Key_words.objects.filter(name=i)[0].description
             print_hi(new_user.group_name + " " + new_user.depat_name + " " + new_user.center_name,
                          Director.objects.filter(id=cache.get("id"))[0].pos_name,
                          list(Specialization.objects.filter(id=new_user.specialization.all()[0].id)[0].description.split(
@@ -106,12 +109,12 @@ def create_j_d(request):
                          Director.objects.filter(id=cache.get("id"))[0].name[0] + '.' +
                          Director.objects.filter(id=cache.get("id"))[0].third_name[0] + '. ' +
                          Director.objects.filter(id=cache.get("id"))[0].surname,
-                         ["111", "222"],
+                         ["Начальник", "Специалист"],
                          Specialization.objects.filter(id=new_user.specialization.all()[0].id)[0].description,
                          Position.objects.filter(id=new_user.position.all()[0].id)[0].education,
                          Position.objects.filter(id=new_user.position.all()[0].id)[0].job_experience,
                              mainResponsibilities,
-                         f'{new_user.id}.doc')
+                         f'employee/media/{new_user.id}.doc')
             return redirect("storage")
         else:
             return_param = param.dict()
@@ -127,8 +130,21 @@ def create_j_d(request):
             spec_names = list()
             for i in list(Specialization.objects.all()):
                 spec_names.append(i.name)
+            depart_name = list()
+            for i in list(Director.objects.filter(id=cache.get("id"))[0].depat_name.split(", ")):
+                depart_name.append(i)
+            center_name = list()
+            for i in list(Director.objects.filter(id=cache.get("id"))[0].center_name.split(", ")):
+                center_name.append(i)
+            group_name = list()
+            for i in list(Director.objects.filter(id=cache.get("id"))[0].group_name.split(", ")):
+                group_name.append(i)
             return_param['spec_names'] = spec_names
             return_param['pos_names'] = pos_names
+            return_param['group_name'] = group_name
+            return_param['center_name'] = center_name
+            return_param['depart_name'] = depart_name
+
             print(pos_names)
             return render(request, "employee/j_d_form.html", return_param)
     elif len(request.POST) == 2:
@@ -162,15 +178,30 @@ def create_j_d(request):
         spec_names = list()
         for i in list(Specialization.objects.all()):
             spec_names.append(i.name)
+        depart_name = list()
+        for i in list(Director.objects.filter(id=cache.get("id"))[0].depat_name.split(", ")):
+            depart_name.append(i)
+        center_name = list()
+        for i in list(Director.objects.filter(id=cache.get("id"))[0].center_name.split(", ")):
+            center_name.append(i)
+        group_name = list()
+        for i in list(Director.objects.filter(id=cache.get("id"))[0].group_name.split(", ")):
+            group_name.append(i)
         return_param['spec_names'] = spec_names
         return_param['pos_names'] = pos_names
+        return_param['group_name'] = group_name
+        return_param['center_name'] = center_name
+        return_param['depart_name'] = depart_name
         print(pos_names)
         return render(request, "employee/j_d_form.html", return_param)
 
 
 def download(request, a):
-    file_path = os.path.join('./', a)
-    response = FileResponse(open(file_path, 'rb'))
+    print("@@@@@@@@@@@@@@@@@@@@")
+    b = str(a)
+    b += '.doc'
+    b = 'employee/media/' + b
+    response = FileResponse(open(b, 'rb'))
     return response
 
 
