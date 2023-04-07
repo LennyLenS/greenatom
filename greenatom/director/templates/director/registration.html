@@ -1,59 +1,67 @@
 {% extends 'director/base.html' %}
 
 {% block content %}
-
     <div id="loginForm" class="mainForm shadow p-3 bg-white rounded">
 
         <div class="content">
-
             <h2 class="locatedCenter">Регистрация:</h2>
             <hr class="indentation">
-
+            {% if errors %}
+                <p class="alert alert-danger border-danger">
+                {% for error in errors %}
+                    {{ error }}
+                    <br>
+                {% endfor %}
+                 </p>
+            {% endif %}
             <form method="post" action="registration">
               {% csrf_token %}
               <div class="form-group">
-                <label for="exampleInputEmail1">Имя пользователя:</label>
-                <input type="text" class="form-control" placeholder="Введите имя пользователя" name="login">
+                <label for="login">Имя пользователя:</label>
+                <input type="text" class="form-control" placeholder="Введите имя пользователя" name="login" id="login" value="{{login}}">
               </div>
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Пароль:</label>
-                <input type="password" class="form-control" placeholder="Введите пароль" name="password">
+                <label for="password">Пароль:</label>
+                <input type="password" class="form-control" placeholder="Введите пароль" name="password" id="password" value="{{password}}">
               </div>
 
               <div class="form-group">
-                <label for="exampleInputPassword1">ФИО:</label>
-                <input type="text" class="form-control" placeholder="Инициаллы" name="name">
+                <label for="name">ФИО:</label>
+                <input type="text" class="form-control" placeholder="Инициаллы" name="name" id="name" value="{{name}}">
               </div>
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Должность:</label>
-                <input type="text" class="form-control" placeholder="Введите ваши должности через запятую" name="position">
+                <label for="position">Должность:</label>
+                <input type="text" class="form-control" placeholder="Введите ваши должности через запятую" name="position" id="position" value="{{position}}">
               </div>
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Группа:</label>
-                <input type="text" class="form-control" placeholder="Введите ваши группы через запятую" name="group">
+                <label for="group">Группа:</label>
+                <input type="text" class="form-control" placeholder="Введите ваши группы через запятую" name="group" id="group" value="{{group}}">
               </div>
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Отдел:</label>
-                <input type="text" class="form-control" placeholder="Введите ваши отделы через запятую" name="depart">
+                <label for="depart">Отдел:</label>
+                <input type="text" class="form-control" placeholder="Введите ваши отделы через запятую" name="depart" id="depart" value="{{depart}}">
               </div>
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Центр:</label>
-                <input type="text" class="form-control" placeholder="Введите ваши центры через запятую" name="center">
-              </div>
-
-              <div class="locatedCenterBlock">
-                <button id="some"  type="submit" class="btn btn-outline-primary">Вход в систему</button>
+                <label for="center">Центр:</label>
+                <input type="text" class="form-control" placeholder="Введите ваши центры через запятую" name="center" id="center" value="{{center}}">
               </div>
 
               <div class="locatedCenterBlock">
                 <button id="some" type="submit" class="btn btn-primary">Регистрация</button>
               </div>
 
+            </form>
+
+            <form method="POST" action="login">
+              {% csrf_token %}
+              <div class="locatedCenterBlock">
+                <button id="some"  type="submit" class="btn btn-outline-primary">Вход в систему</button>
+              </div>
             </form>
 
         </div>       

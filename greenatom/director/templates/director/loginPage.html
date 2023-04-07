@@ -8,27 +8,37 @@
 
             <h2 class="locatedCenter">Вход:</h2>
             <hr class="indentation">
-
+            {% if errors %}
+                <p class="alert alert-danger border-danger">
+                {% for error in errors %}
+                    {{ error }}
+                    <br>
+                {% endfor %}
+                 </p>
+            {% endif %}
             <form method="post" action="login">
-                {% csrf_token %}
+              {% csrf_token %}
               <div class="form-group">
-                <label for="exampleInputEmail1">Имя пользователя:</label>
-                <input type="text" class="form-control" placeholder="Введите имя пользователя" name="login">
+                <label for="login">Имя пользователя:</label>
+                <input type="text" class="form-control" placeholder="Введите имя пользователя" name="login" id="login" value="{{login}}">
               </div>
 
               <div class="form-group">
-                <label for="exampleInputPassword1">Пароль:</label>
-                <input type="password" class="form-control" placeholder="Введите пароль" name="password">
-              </div>
-
-              <div class="locatedCenterBlock">
-                <button id="some" type="submit" class="btn btn-outline-primary">Регистрация</button>
+                <label for="password">Пароль:</label>
+                <input type="password" class="form-control" placeholder="Введите пароль" name="password" id="password">
               </div>
 
               <div class="locatedCenterBlock">
                 <button id="some" type="submit" class="btn btn-primary">Войти</button>
               </div>
 
+            </form>
+
+            <form method="POST" action="registration">
+              {% csrf_token %}
+              <div class="locatedCenterBlock">
+                <button id="some" type="submit" class="btn btn-outline-primary">Регистрация</button>
+              </div>
             </form>
 
         </div>       

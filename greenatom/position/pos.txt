@@ -8,3 +8,6 @@ Position.objects.create(name='Эксперт')
 Position.objects.create(name='Старший эксперт')
 Position.objects.create(name='Ведущий эксперт')
 Position.objects.create(name='Архитектор')
+
+
+Keyword.objects.create(name='css', description='')

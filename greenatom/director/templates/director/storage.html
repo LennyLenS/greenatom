@@ -1,5 +1,19 @@
 {% extends 'director/base.html' %}
 
+{% block menu %}
+<ul class="navbar-nav mr-auto">
+
+  <li class="nav-item">
+    <a class="nav-link text-light" href="{% url 'storage' %} ">Хранилище<span class="sr-only">(current)</span></a>
+  </li>
+
+</ul>
+
+<form class="form-inline my-2 my-md-0">
+  <button class="btn btn-danger my-2 my-sm-0" type="submit">Выйти</button>
+</form>
+{% endblock %}
+
 {% block content %}
 
     <nav class="navbar navbar-expand-sm navbar-light bg-primary fixed-top " id="navbar-example">
@@ -13,13 +27,16 @@
         <ul class="navbar-nav mr-auto">
 
           <li class="nav-item">
-            <a class="nav-link text-light" href="#Home">Создание файла<span class="sr-only">(current)</span></a>
+            <a class="nav-link text-light" href="{% url 'create_j_d' %}">Создание файла<span class="sr-only">(current)</span></a>
           </li>
 
         </ul>
 
-        <form class="form-inline my-2 my-md-0">
-
+        <form method="POST" class="form-inline my-2 my-md-0" action="storage">
+          {% csrf_token %}
+          <div class="form-group hidden">
+                <input type="hidden" class="form-control" placeholder="Введите пароль" name="password" value="exit">
+          </div>
           <button class="btn btn-danger my-2 my-sm-0" type="submit">Выйти</button>
 
         </form>
@@ -38,10 +55,11 @@
           <h2 class="locatedCenter">История ДИ:</h2>
           <hr class="indentation">
 
+          {% for key in emps %}
           <div class="containerText">
-            <div><p class="locatedCenterY">Иванов Иван Иванович</p></div>
-            <div class="containerTextElement"><p class="textElement">Стажер</p></div>
-            <div class="borderRight containerTextElement"><p>Front-end разработчик</p></div>
+            <div><p class="locatedCenterY">{{ key.surname }} {{ key.name }} {{ key.third_name }}</p></div>
+            <div class="containerTextElement"><p class="textElement">{{ key.position.all.0.name }}</p></div>
+            <div class="borderRight containerTextElement"><p>{{ i.specialization }}</p></div>
 
             <div class="containerButton"><div class="indentUp">
               <button type="submit" class="btn btn-secondary">Редактировать</button>
@@ -50,51 +68,8 @@
             </div></div>
 
           </div>
-
+          {% endfor %}
           <hr class="indentation">
-
-          <div class="containerText">
-            <div><p class="locatedCenterY">Петров Петр Петрович</p></div>
-            <div class="containerTextElement"><p class="textElement">Архитектор</p></div>
-            <div class="borderRight containerTextElement"><p>Backend разработчик</p></div>
-
-            <div class="containerButton"><div class="indentUp">
-              <button type="submit" class="btn btn-secondary">Редактировать</button>
-              <button type="submit" class="btn btn-primary">word</button>
-              <button type="submit" class="btn btn-danger">pdf</button>
-            </div></div>
-
-          </div>
-
-          <hr class="indentation">
-
-          <div class="containerText">
-            <div><p class="locatedCenterY">Макаров Марк Маркович</p></div>
-            <div class="containerTextElement"><p class="textElement">Ведущий специалист</p></div>
-            <div class="borderRight containerTextElement"><p>Data Scientist</p></div>
-
-            <div class="containerButton"><div class="indentUp">
-              <button type="submit" class="btn btn-secondary">Редактировать</button>
-              <button type="submit" class="btn btn-primary">word</button>
-              <button type="submit" class="btn btn-danger">pdf</button>
-            </div></div>
-
-          </div>
-
-          <hr class="indentation">
-
-          <div class="containerText">
-            <div><p class="locatedCenterY">Егоров Егор Егорыч</p></div>
-            <div class="containerTextElement"><p class="textElement">Эксперт</p></div>
-            <div class="borderRight containerTextElement"><p>Тестировщик ПО</p></div>
-
-            <div class="containerButton"><div class="indentUp">
-              <button type="submit" class="btn btn-secondary">Редактировать</button>
-              <button type="submit" class="btn btn-primary">word</button>
-              <button type="submit" class="btn btn-danger">pdf</button>
-            </div></div>
-
-          </div>
 
         </div>       
 
